@@ -20,7 +20,7 @@ const defaultValues = {
   stake: 5000,
   blockPayout: 0.025,
   blockTimeMinutes: 11,
-  reinvestingFee: 0.4,
+  reinvestingFee: 1.24,
   days: 150
 };
 
@@ -218,8 +218,8 @@ class Inputs extends React.PureComponent {
             }
             autoComplete="false"
             inputProps={{
-              min: 0.1,
-              max: 1,
+              min: 0,
+              max: 10,
               step: 0.01
             }}
             value={values.reinvestingFee}
