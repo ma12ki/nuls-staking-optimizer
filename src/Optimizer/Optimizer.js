@@ -1,6 +1,7 @@
 import React from "react";
 
 import Inputs from "./Inputs";
+import Chart from "./Chart";
 import defaultInputValues from "./defaultInputValues";
 import "./Optimizer.css";
 
@@ -15,6 +16,7 @@ class Optimizer extends React.PureComponent {
     return (
       <main className="Optimizer">
         <Inputs onChange={this.handleInputsChange} />
+        <Chart />
       </main>
     );
   }
