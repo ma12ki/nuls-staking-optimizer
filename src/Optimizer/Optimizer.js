@@ -51,6 +51,12 @@ class Optimizer extends React.PureComponent {
 
     return (
       <main className="Optimizer">
+        <div className="Optimizer-title">
+          This calculator helps you answer the question:{" "}
+          <span className="Optimizer-question">
+            "How often do I reinvest my staking gains to maximize profit?".
+          </span>
+        </div>
         <Inputs onChange={this.handleInputsChange} />
         <div>
           max {max.finalStake} NULS if reinvesting every{" "}
