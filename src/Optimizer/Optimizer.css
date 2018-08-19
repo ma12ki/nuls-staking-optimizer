@@ -10,3 +10,11 @@
 .Optimizer-question {
   font-style: italic;
 }
+
+.Optimizer-result {
+  margin-bottom: 1rem;
+}
+
+.Optimizer-result-value {
+  color: #74d500;
+}

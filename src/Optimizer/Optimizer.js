@@ -48,6 +48,7 @@ class Optimizer extends React.PureComponent {
 
   render() {
     const { data, max } = this.state;
+    const maxDays = data.length - 1;
 
     return (
       <main className="Optimizer">
@@ -58,9 +59,14 @@ class Optimizer extends React.PureComponent {
           </span>
         </div>
         <Inputs onChange={this.handleInputsChange} />
-        <div>
-          max {max.finalStake} NULS if reinvesting every{" "}
-          {max.daysBetweenReinvesting} days
+        <div className="Optimizer-result">
+          Max <span className="Optimizer-result-value">{max.finalStake}</span>{" "}
+          NULS after <span className="Optimizer-result-value">{maxDays}</span>{" "}
+          days if reinvesting every{" "}
+          <span className="Optimizer-result-value">
+            {max.daysBetweenReinvesting}
+          </span>{" "}
+          days
         </div>
         <Chart data={data} />
       </main>
