@@ -1,8 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 import "./Inputs.css";
+
+const valuesStorageKey = "VALUES";
+const storeValues = values =>
+  localStorage.setItem(valuesStorageKey, JSON.stringify(values));
+const retrieveValues = values =>
+  JSON.parse(localStorage.getItem(valuesStorageKey) || null);
+
+const storedValues = retrieveValues();
 
 const defaultValues = {
   stake: 5000,
@@ -14,12 +23,36 @@ const defaultValues = {
 
 class Inputs extends React.PureComponent {
   state = {
-    values: defaultValues,
+    values: storedValues || defaultValues,
     errors: {}
   };
 
   componentDidMount = () => {
     this.props.onChange(this.state.values);
+  };
+
+  handleSaveValues = () => {
+    storeValues(this.state.values);
+  };
+
+  handleLoadValues = () => {
+    this.setState(
+      {
+        values: retrieveValues() || defaultValues,
+        errors: {}
+      },
+      () => this.props.onChange(this.state.values)
+    );
+  };
+
+  handleRestoreDefaults = () => {
+    this.setState(
+      {
+        values: defaultValues,
+        errors: {}
+      },
+      () => this.props.onChange(this.state.values)
+    );
   };
 
   normalizeTarget = target => {
@@ -95,91 +128,111 @@ class Inputs extends React.PureComponent {
 
   render() {
     const { values, errors } = this.state;
+    const isFormValid = this.isFormValid();
 
     return (
       <div className="Inputs">
-        <TextField
-          error={Boolean(errors.stake)}
-          required
-          type="number"
-          name="stake"
-          label="Stake"
-          helperText={errors.stake ? errors.stake : "2000 - 480000"}
-          autoComplete="false"
-          inputProps={{
-            min: 2000,
-            max: 480000,
-            step: 1
-          }}
-          value={values.stake}
-          onChange={this.handleChange}
-        />
-        <TextField
-          error={Boolean(errors.blockPayout)}
-          required
-          type="number"
-          name="blockPayout"
-          label="Payout per block"
-          helperText={errors.blockPayout ? errors.blockPayout : "0.001 - 10"}
-          autoComplete="false"
-          inputProps={{
-            min: 0.001,
-            max: 10,
-            step: 0.001
-          }}
-          value={values.blockPayout}
-          onChange={this.handleChange}
-        />
-        <TextField
-          error={Boolean(errors.days)}
-          required
-          type="number"
-          name="days"
-          label="Staking period (days)"
-          helperText={errors.days ? errors.days : "30 - 1000"}
-          autoComplete="false"
-          inputProps={{
-            min: 30,
-            max: 1000,
-            step: 1
-          }}
-          value={values.days}
-          onChange={this.handleChange}
-        />
-        <TextField
-          error={Boolean(errors.blockTimeMinutes)}
-          required
-          type="number"
-          name="blockTimeMinutes"
-          label="Time between payouts (minutes)"
-          helperText={
-            errors.blockTimeMinutes ? errors.blockTimeMinutes : "1 - 100"
-          }
-          autoComplete="false"
-          inputProps={{
-            min: 1,
-            max: 100,
-            step: 0.1
-          }}
-          value={values.blockTimeMinutes}
-          onChange={this.handleChange}
-        />
-        <TextField
-          error={Boolean(errors.reinvestingFee)}
-          required
-          type="number"
-          name="reinvestingFee"
-          label="Reinvesting fee"
-          helperText={errors.reinvestingFee ? errors.reinvestingFee : "0.1 - 1"}
-          autoComplete="false"
-          inputProps={{
-            min: 0.1,
-            max: 1,
-            step: 0.01
-          }}
-          value={values.reinvestingFee}
-          onChange={this.handleChange}
-        />
+        <div className="Inputs-fields">
+          <TextField
+            error={Boolean(errors.stake)}
+            required
+            type="number"
+            name="stake"
+            label="Stake"
+            helperText={errors.stake ? errors.stake : "2000 - 480000"}
+            autoComplete="false"
+            inputProps={{
+              min: 2000,
+              max: 480000,
+              step: 1
+            }}
+            value={values.stake}
+            onChange={this.handleChange}
+          />
+          <TextField
+            error={Boolean(errors.blockPayout)}
+            required
+            type="number"
+            name="blockPayout"
+            label="Payout per block"
+            helperText={errors.blockPayout ? errors.blockPayout : "0.001 - 10"}
+            autoComplete="false"
+            inputProps={{
+              min: 0.001,
+              max: 10,
+              step: 0.001
+            }}
+            value={values.blockPayout}
+            onChange={this.handleChange}
+          />
+          <TextField
+            error={Boolean(errors.days)}
+            required
+            type="number"
+            name="days"
+            label="Staking period (days)"
+            helperText={errors.days ? errors.days : "30 - 1000"}
+            autoComplete="false"
+            inputProps={{
+              min: 30,
+              max: 1000,
+              step: 1
+            }}
+            value={values.days}
+            onChange={this.handleChange}
+          />
+          <TextField
+            error={Boolean(errors.blockTimeMinutes)}
+            required
+            type="number"
+            name="blockTimeMinutes"
+            label="Time between payouts (minutes)"
+            helperText={
+              errors.blockTimeMinutes ? errors.blockTimeMinutes : "1 - 100"
+            }
+            autoComplete="false"
+            inputProps={{
+              min: 1,
+              max: 100,
+              step: 0.1
+            }}
+            value={values.blockTimeMinutes}
+            onChange={this.handleChange}
+          />
+          <TextField
+            error={Boolean(errors.reinvestingFee)}
+            required
+            type="number"
+            name="reinvestingFee"
+            label="Reinvesting fee"
+            helperText={
+              errors.reinvestingFee ? errors.reinvestingFee : "0.1 - 1"
+            }
+            autoComplete="false"
+            inputProps={{
+              min: 0.1,
+              max: 1,
+              step: 0.01
+            }}
+            value={values.reinvestingFee}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div className="Inputs-buttons">
+          <Button
+            variant="contained"
+            disabled={!isFormValid}
+            onClick={this.handleSaveValues}
+          >
+            Save
+          </Button>
+          <Button variant="contained" onClick={this.handleLoadValues}>
+            Load
+          </Button>
+          <Button variant="contained" onClick={this.handleRestoreDefaults}>
+            Default
+          </Button>
+        </div>
       </div>
     );
   }
