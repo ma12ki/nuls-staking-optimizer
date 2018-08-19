@@ -2,8 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 
-import defaultValues from "../defaultInputValues";
 import "./Inputs.css";
+
+const defaultValues = {
+  stake: 2000,
+  blockPayout: 0.008,
+  blockTimeMinutes: 11,
+  reinvestingFee: 0.4,
+  days: 100
+};
 
 class Inputs extends React.PureComponent {
   state = {
@@ -11,7 +18,11 @@ class Inputs extends React.PureComponent {
     errors: {}
   };
 
-  normalizeInputAttrs = target => {
+  componentDidMount = () => {
+    this.props.onChange(this.state.values);
+  };
+
+  normalizeTarget = target => {
     let { name, min, max, step, value, required } = target;
     min = Number(min);
     max = Number(max);
@@ -61,10 +72,9 @@ class Inputs extends React.PureComponent {
 
   handleChange = e => {
     const { values } = this.state;
-    const { target } = e;
-    const normalizedTarget = this.normalizeInputAttrs(target);
-    const { name, value } = normalizedTarget;
-    const errors = this.getUpdatedErrors(normalizedTarget);
+    const target = this.normalizeTarget(e.target);
+    const { name, value } = target;
+    const errors = this.getUpdatedErrors(target);
     const isFormValid = this.isFormValid(errors);
 
     this.setState({
@@ -118,6 +128,22 @@ class Inputs extends React.PureComponent {
             step: 0.001
           }}
           value={values.blockPayout}
+          onChange={this.handleChange}
+        />
+        <TextField
+          error={Boolean(errors.days)}
+          required
+          type="number"
+          name="days"
+          label="Staking period (days)"
+          helperText={errors.days ? errors.days : "30 - 1000"}
+          autoComplete="false"
+          inputProps={{
+            min: 30,
+            max: 1000,
+            step: 1
+          }}
+          value={values.days}
           onChange={this.handleChange}
         />
         <TextField
