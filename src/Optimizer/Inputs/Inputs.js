@@ -87,7 +87,7 @@ class Inputs extends React.PureComponent {
     const errors = { ...this.state.errors };
     const { name, min, max, value, required } = target;
 
-    if (required && (value == null || value == "")) {
+    if (required && (value == null || value === "")) {
       error = "Required";
     } else if (min != null && max != null && (value < min || value > max)) {
       error = `Min ${min}, max ${max}`;
