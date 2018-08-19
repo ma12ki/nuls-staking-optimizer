@@ -5,11 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import "./Inputs.css";
 
 const defaultValues = {
-  stake: 2000,
-  blockPayout: 0.008,
+  stake: 5000,
+  blockPayout: 0.025,
   blockTimeMinutes: 11,
   reinvestingFee: 0.4,
-  days: 100
+  days: 300
 };
 
 class Inputs extends React.PureComponent {

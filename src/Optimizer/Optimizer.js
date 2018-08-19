@@ -18,9 +18,9 @@ class Optimizer extends React.PureComponent {
     reinvestingFee,
     days
   }) => {
-    const data = Array(days)
+    const data = Array(days + 1)
       .fill(null)
-      .map((_, i) => i + 1)
+      .map((_, i) => i)
       .map(daysBetweenReinvesting => ({
         daysBetweenReinvesting,
         finalStake: simulator({
@@ -47,7 +47,7 @@ class Optimizer extends React.PureComponent {
   };
 
   render() {
-    const { max } = this.state;
+    const { data, max } = this.state;
 
     return (
       <main className="Optimizer">
@@ -56,7 +56,7 @@ class Optimizer extends React.PureComponent {
           max {max.finalStake} NULS if reinvesting every{" "}
           {max.daysBetweenReinvesting} days
         </div>
-        <Chart />
+        <Chart data={data} />
       </main>
     );
   }
