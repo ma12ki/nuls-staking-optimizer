@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
+import SettingsBackupRestoreIcon from "@material-ui/icons/SettingsBackupRestore";
 
 import "./Inputs.css";
 
@@ -225,16 +228,19 @@ class Inputs extends React.PureComponent {
         </div>
         <div className="Inputs-buttons">
           <Button
-            variant="contained"
+            color="primary"
             disabled={!isFormValid}
             onClick={this.handleSaveValues}
           >
+            <CloudUploadIcon className="Inputs-icon" />
             Save
           </Button>
-          <Button variant="contained" onClick={this.handleLoadValues}>
+          <Button color="primary" onClick={this.handleLoadValues}>
+            <CloudDownloadIcon className="Inputs-icon" />
             Load
           </Button>
-          <Button variant="contained" onClick={this.handleRestoreDefaults}>
+          <Button color="primary" onClick={this.handleRestoreDefaults}>
+            <SettingsBackupRestoreIcon className="Inputs-icon" />
             Default
           </Button>
         </div>
