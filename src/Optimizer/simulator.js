@@ -22,7 +22,7 @@ const simulator = ({
     }
   }
 
-  return stake + dividend;
+  return +(stake + dividend).toFixed(2);
 };
 
 export default simulator;
