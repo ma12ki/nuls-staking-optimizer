@@ -214,7 +214,7 @@ class Inputs extends React.PureComponent {
             name="reinvestingFee"
             label="Reinvesting fee"
             helperText={
-              errors.reinvestingFee ? errors.reinvestingFee : "0.1 - 1"
+              errors.reinvestingFee ? errors.reinvestingFee : "0 - 10"
             }
             autoComplete="false"
             inputProps={{
