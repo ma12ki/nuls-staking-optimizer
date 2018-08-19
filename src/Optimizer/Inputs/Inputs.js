@@ -134,6 +134,7 @@ class Inputs extends React.PureComponent {
       <div className="Inputs">
         <div className="Inputs-fields">
           <TextField
+            className="Inputs-field"
             error={Boolean(errors.stake)}
             required
             type="number"
@@ -150,6 +151,7 @@ class Inputs extends React.PureComponent {
             onChange={this.handleChange}
           />
           <TextField
+            className="Inputs-field"
             error={Boolean(errors.blockPayout)}
             required
             type="number"
@@ -166,6 +168,7 @@ class Inputs extends React.PureComponent {
             onChange={this.handleChange}
           />
           <TextField
+            className="Inputs-field"
             error={Boolean(errors.days)}
             required
             type="number"
@@ -182,6 +185,7 @@ class Inputs extends React.PureComponent {
             onChange={this.handleChange}
           />
           <TextField
+            className="Inputs-field"
             error={Boolean(errors.blockTimeMinutes)}
             required
             type="number"
@@ -200,6 +204,7 @@ class Inputs extends React.PureComponent {
             onChange={this.handleChange}
           />
           <TextField
+            className="Inputs-field"
             error={Boolean(errors.reinvestingFee)}
             required
             type="number"
