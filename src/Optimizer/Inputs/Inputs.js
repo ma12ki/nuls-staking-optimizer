@@ -9,7 +9,7 @@ const defaultValues = {
   blockPayout: 0.025,
   blockTimeMinutes: 11,
   reinvestingFee: 0.4,
-  days: 300
+  days: 150
 };
 
 class Inputs extends React.PureComponent {
