@@ -6,9 +6,12 @@ const Chart = ({ data }) => {
   const chartData = data.map(item => item.finalStake);
   const labels = data.map(item => String(item.daysBetweenReinvesting));
   const max = Math.max(...chartData);
-  const pointRadius = chartData.map(value => (value === max ? 3 : 1));
-  const pointColor = chartData.map(
-    value => (value === max ? "#74d500" : "#041e4f")
+  const pointRadius = chartData.map(value => (value === max ? 5 : 0));
+  const pointBorderColor = chartData.map(
+    value => (value === max ? "#74d500" : "")
+  );
+  const pointBackgroundColor = chartData.map(
+    value => (value === max ? "#74d500" : "")
   );
 
   return (
@@ -20,12 +23,15 @@ const Chart = ({ data }) => {
             {
               label: "Final stake",
               data: chartData,
-              fill: false,
-              borderWidth: 2,
+              fill: true,
+              //   backgroundColor: "rgba(4,30,79,0.3)",
+              backgroundColor: "rgba(116,213,0,0.4)",
+              borderWidth: 3,
               borderColor: "#041e4f",
               pointRadius,
-              pointBorderColor: pointColor,
-              pointBackgroundColor: pointColor,
+              pointBorderColor,
+              pointBackgroundColor,
+              pointHoverRadius: 5,
               pointHoverBackgroundColor: "#bdf502",
               pointHoverBorderColor: "#bdf502"
             }
